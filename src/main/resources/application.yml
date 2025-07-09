@@ -1,1 +1,10 @@
 
+elastic:
+  host:
+  api-key:
+  index:
+    post:
+
+spring:
+  profiles:
+    active: dev
