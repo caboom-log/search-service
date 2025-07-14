@@ -11,6 +11,7 @@ import site.caboomlog.searchservice.service.PostService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PostController {
 
     private final PostService postService;
@@ -21,7 +22,7 @@ public class PostController {
      * @param postRequest 게시글 요청 본문 (Post ID, Blog FID, 제목, 내용 등)
      * @return 생성된 게시글 ID를 포함한 메시지와 함께 201 Created 응답
      */
-    @PostMapping("/api/posts")
+    @PostMapping("/posts")
     public ResponseEntity<String> createPost(@RequestBody PostRequest postRequest) {
         postService.createPost(postRequest);
         return ResponseEntity.status(201)
@@ -34,7 +35,7 @@ public class PostController {
      * @param postId 삭제할 게시글의 ID
      * @return 삭제 완료 메시지와 함께 204 No Content 응답
      */
-    @DeleteMapping("/api/posts/{postId}")
+    @DeleteMapping("/posts/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable("postId") Long postId) {
         postService.deleteByPostId(postId);
         return ResponseEntity.status(204)
@@ -53,7 +54,7 @@ public class PostController {
      * @param blogFid    검색할 블로그 식별자 (선택값)
      * @return {@link PostPageResponse} 객체를 포함한 200 OK 응답
      */
-    @GetMapping("/api/search/posts")
+    @GetMapping("/search/posts")
     public ResponseEntity<PostPageResponse> searchPosts(
             @RequestParam(name = "keyword") String keyword,
             @RequestParam(name = "search_type") String searchType,
