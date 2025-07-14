@@ -1,0 +1,21 @@
+{
+  "analysis": {
+    "filter" : {
+      "caboomlog_synonyms" : {
+        "type" : "synonym",
+        "synonyms" : [
+          "java, 자바",
+          "programming, 프로그래밍",
+          "ㅎㅇ, 하이, hi, 안녕"
+        ]
+      }
+    },
+    "analyzer": {
+      "caboomlog_analyzer": {
+        "char_filter": [],
+        "tokenizer": "nori_tokenizer",
+        "filter": ["nori_part_of_speech", "nori_readingform", "lowercase", "stop", "stemmer", "caboomlog_synonyms"]
+      }
+    }
+  }
+}
