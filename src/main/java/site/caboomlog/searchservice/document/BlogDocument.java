@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
 import site.caboomlog.searchservice.dto.BlogRequest;
+
 @Document(indexName = "blogs")
 @Getter
 @Setting(settingPath = "/elasticsearch/blog-settings.json")

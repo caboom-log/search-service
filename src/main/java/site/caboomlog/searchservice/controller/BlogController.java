@@ -1,5 +1,6 @@
 package site.caboomlog.searchservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class BlogController {
      * @return 생성된 블로그 FID를 포함한 메시지와 함께 201 Created 응답
      */
     @PostMapping("/blogs")
-    public ResponseEntity<String> createPost(@RequestBody BlogRequest blogRequest) {
+    public ResponseEntity<String> createPost(@RequestBody @Valid BlogRequest blogRequest) {
         blogService.createBlog(blogRequest);
         return ResponseEntity.status(201)
                 .body(String.format("등록 완료: %s", blogRequest.getBlogFid()));
@@ -54,7 +55,7 @@ public class BlogController {
     @GetMapping("/search/blogs")
     public ResponseEntity<BlogPageResponse> searchPosts(
             @RequestParam(name = "keyword") String keyword,
-            @RequestParam(name = "blog_type", required = false) String blogType,
+            @RequestParam(name = "blogType", required = false) String blogType,
             @RequestParam(name = "size", defaultValue = "20") int size,
             @RequestParam(name = "offset", defaultValue = "1") int offset) {
         Page<BlogDocument> result = blogService.searchBlogs(keyword, blogType, size, offset - 1);
