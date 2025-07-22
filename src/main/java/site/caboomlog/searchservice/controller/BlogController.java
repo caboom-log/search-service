@@ -24,7 +24,7 @@ public class BlogController {
      * @return 생성된 블로그 FID를 포함한 메시지와 함께 201 Created 응답
      */
     @PostMapping("/blogs")
-    public ResponseEntity<String> createPost(@RequestBody @Valid BlogRequest blogRequest) {
+    public ResponseEntity<String> createBlog(@RequestBody @Valid BlogRequest blogRequest) {
         blogService.createBlog(blogRequest);
         return ResponseEntity.status(201)
                 .body(String.format("등록 완료: %s", blogRequest.getBlogFid()));
