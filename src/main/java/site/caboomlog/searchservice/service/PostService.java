@@ -85,11 +85,6 @@ public class PostService {
                 throw new IllegalArgumentException("searchType은 title, content, title_content 중 하나로 입력해야 합니다.");
         }
 
-        Query blogFidFilter = TermQuery.of(t -> t
-                .field("blog_fid")
-                .value(blogFid)
-        )._toQuery();
-
         Query dateRangeFilter = DateRangeQuery.of(r -> r
                 .field("created_at")
                 .gte(startDate)
@@ -97,7 +92,7 @@ public class PostService {
         )._toRangeQuery()._toQuery();
 
         Query boolQuery;
-        if (blogFid.isBlank()) {
+        if (blogFid == null || blogFid.isBlank()) {
             boolQuery = BoolQuery.of(b -> b
                     .must(matchQuery)
                     .filter(dateRangeFilter)
@@ -105,8 +100,12 @@ public class PostService {
         } else {
             boolQuery = BoolQuery.of(b -> b
                     .must(matchQuery)
-                    .filter(dateRangeFilter, blogFidFilter)
-            )._toQuery();
+                    .filter(dateRangeFilter,
+                            TermQuery.of(t -> t
+                                    .field("blog_fid")
+                                    .value(blogFid)
+                            )._toQuery())
+                    )._toQuery();
         }
 
         NativeQuery nativeQuery = NativeQuery.builder()

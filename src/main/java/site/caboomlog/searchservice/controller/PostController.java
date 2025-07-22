@@ -65,7 +65,10 @@ public class PostController {
             @RequestParam(name = "endDate", defaultValue = "3000-12-31") String endDate,
             @RequestParam(name = "blogFid", required = false) String blogFid) {
         Page<PostDocument> result = postService
-                                .searchPosts(keyword, searchType, size, offset - 1, startDate, endDate, blogFid);
+                                .searchPosts(keyword, searchType, size, offset - 1,
+                                        startDate,
+                                        endDate,
+                                        blogFid);
         return ResponseEntity.ok(
                 new PostPageResponse(
                         result.getContent(), result.getTotalElements(),
