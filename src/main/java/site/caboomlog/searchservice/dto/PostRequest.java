@@ -1,5 +1,6 @@
 package site.caboomlog.searchservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,7 +17,8 @@ public class PostRequest {
     @NotBlank(message = "blogFid는 필수 항목입니다.")
     private String blogFid;
 
-    @NotBlank(message = "postTitle은 필수 항목입니다.")
+    @NotBlank(message = "title은 필수 항목입니다.")
+    @JsonProperty("title")
     private String postTitle;
 
     @NotBlank(message = "postContent는 필수 항목입니다.")

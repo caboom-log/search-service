@@ -1,5 +1,6 @@
 package site.caboomlog.searchservice.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -34,6 +35,7 @@ public class PostDocument {
     private String thumbnail;
 
     @Field(type = FieldType.Date, format = DateFormat.year_month_day, index = false, name = "created_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private String createdAt;
 
     @Field(type = FieldType.Text, analyzer = "caboomlog_analyzer")
